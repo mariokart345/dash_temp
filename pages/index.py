@@ -5,7 +5,7 @@ import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
 import plotly.express as px
-
+import pandas as pd
 # Imports from this application
 from app import app
 
@@ -13,27 +13,18 @@ from app import app
 # https://dash-bootstrap-components.opensource.faculty.ai/l/components/layout
 column1 = dbc.Col(
     [
-        dcc.Markdown(
-            """
-        
-            ## Your Value Proposition
-
-            Emphasize how the app will benefit users. Don't emphasize the underlying technology.
-
-            ✅ RUN is a running app that adapts to your fitness levels and designs personalized workouts to help you improve your running.
-
-            ❌ RUN is the only intelligent running app that uses sophisticated deep neural net machine learning to make your run smarter because we believe in ML driven workouts.
-
-            """
-        ),
-        dcc.Link(dbc.Button('Your Call To Action', color='primary'), href='/predictions')
+        html.H3("Can we be able to predict how much a videogame will make globally?"),
+        html.Br(),
+        dcc.Link(dbc.Button('How I attempted it', color='primary'), href='/process'),
+        html.Br(),
+        dcc.Link(dbc.Button('Make a prediction', color='secondary'),href='/predictions')
     ],
-    md=4,
+    md=5,
 )
 
-gapminder = px.data.gapminder()
-fig = px.scatter(gapminder.query("year==2007"), x="gdpPercap", y="lifeExp", size="pop", color="continent",
-           hover_name="country", log_x=True, size_max=60)
+basey = pd.read_csv('assets/graph.csv')
+
+fig = px.histogram(basey)
 
 column2 = dbc.Col(
     [
